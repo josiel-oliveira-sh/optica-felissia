@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="login-logo-wrapper">
+        <img src="{{ url_for('static', filename='logo_optica.png') }}" alt="Óptica Felíssia" class="login-optica-logo">
+        <span class="login-agenda-text">AGENDA</span>
+    </div>
+    <p class="lema">Consultas - Reuniões e Compromissos</p>
+    {% if erro %}<p class="error">{{ erro }}</p>{% endif %}
+    <form method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+        <input type="submit" value="ENTRAR" class="btn-primary">
+    </form>
+    <div class="links">
+        <a href="#" class="btn-email-login">Entrar com E-mail</a>
+        <a href="{{ url_for('recuperar_senha') }}">Esqueceu a senha?</a>
+        <a href="{{ url_for('cadastro') }}">Novo aqui? Cadastre-se</a>
+    </div>
+{% endblock %}

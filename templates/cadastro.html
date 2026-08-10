@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Cadastro{% endblock %}
+{% block content %}
+    <div class="app-header">
+        <img src="{{ url_for('static', filename='logo_optica.png') }}" alt="Óptica Felíssia" class="app-logo">
+        <span class="app-agenda-text">AGENDA</span>
+    </div>
+    {% if erro %}<p class="error">{{ erro }}</p>{% endif %}
+    <form method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+        <input type="submit" value="CADASTRAR" class="btn-primary">
+    </form>
+    <p>Já tem conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+    <div class="social-icons">
+        <a href="#" target="_blank"><img src="{{ url_for('static', filename='instagram.png') }}" alt="Instagram"></a>
+        <a href="#" target="_blank"><img src="{{ url_for('static', filename='facebook.png') }}" alt="Facebook"></a>
+    </div>
+{% endblock %}

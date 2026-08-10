@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#007bff">
+    <title>{% block title %}AGENDADOU{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container {% block container_class %}{% endblock %}">
+        {% block content %}{% endblock %}
+    </div>
+    <footer class="footer">
+        JODEX - Soluções em Tecnologias
+    </footer>
+</body>
+</html>

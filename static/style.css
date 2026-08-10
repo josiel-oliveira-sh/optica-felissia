@@ -1,0 +1,630 @@
+/* ========== VARIÁVEIS GLOBAIS ========== */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --container-bg: #ffffff;
+    --text-color: #333;
+    --footer-bg: #343a40;
+    --footer-text: #f8f9fa;
+    --success-color: #28a745;
+    --success-bg: #d4edda;
+    --error-color: #dc3545;
+    --error-bg: #f8d7da;
+    --joinha-bg: #e8f5e9;
+    --radius: 10px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== RESET & BASE ========== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+    line-height: 1.5;
+}
+
+/* ========== APP HEADER (LOGO + AGENDA dentro do container) ========== */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.app-logo {
+    max-height: 65px;
+    height: auto;
+    object-fit: contain;
+}
+
+.app-agenda-text {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #0056b3;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ========== CONTAINER PRINCIPAL ========== */
+.container {
+    background-color: var(--container-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 80px;
+}
+
+/* ========== LOGIN - LOGO + AGENDA ========== */
+.login-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.login-optica-logo {
+    max-height: 80px;
+    height: auto;
+    object-fit: contain;
+}
+
+.login-agenda-text {
+    font-size: 2.2em;
+    font-weight: 800;
+    color: #0056b3;
+    letter-spacing: 3px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ========== LEMA (próximo à logo) ========== */
+.lema {
+    color: var(--text-color);
+    font-size: 0.95em;
+    font-style: italic;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* ========== TÍTULOS ========== */
+h2 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+/* ========== FORMULÁRIOS ========== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="date"],
+input[type="tel"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="tel"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* ========== BOTÕES ========== */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-dashboard {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 18px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.1s;
+    display: block;
+}
+
+.btn-dashboard:hover {
+    background-color: #5a6268;
+}
+
+.btn-dashboard:active {
+    transform: scale(0.98);
+}
+
+.links {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.links a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.btn-email-login {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px 16px;
+    border-radius: 5px;
+    font-weight: 600;
+    border: 1px solid #ffc107;
+    display: inline-block;
+}
+
+.btn-email-login:hover {
+    background-color: #ffeaa7;
+    text-decoration: none !important;
+}
+
+/* ========== RODAPÉ ========== */
+.footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    font-size: 0.6em;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* ========== DASHBOARD ========== */
+.dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ========== SEÇÃO LOGO EMPRESA ========== */
+.empresa-logo-section {
+    margin-bottom: 25px;
+}
+
+.logo-upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.empresa-logo-preview {
+    max-width: 140px;
+    max-height: 90px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo-placeholder {
+    width: 120px;
+    height: 80px;
+    background-color: #e9ecef;
+    border: 2px dashed #adb5bd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.logo-icon {
+    font-size: 2em;
+}
+
+.logo-placeholder p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+.logo-upload-form {
+    margin-top: 8px;
+}
+
+#logo_upload {
+    display: none;
+}
+
+.upload-btn-label {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.upload-btn-label:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ========== CATÁLOGO ========== */
+.catalogo-secao {
+    background: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.catalogo-secao h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.1em;
+}
+
+/* ========== MENSAGENS ========== */
+.message {
+    background-color: var(--success-bg);
+    color: #155724;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    text-align: left;
+}
+
+.error {
+    background-color: var(--error-bg);
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+}
+
+/* ========== RESPOSTA IA ========== */
+.resposta-ia {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.ia-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.ia-icon {
+    font-size: 1.5em;
+}
+
+.ia-label {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.ia-mensagem p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ========== SISTEMA DE JOINHA (ALTURA REDUZIDA PELA METADE) ========== */
+.joinha-section {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--joinha-bg);
+    border-radius: 10px;
+    border: 1px solid #c8e6c9;
+}
+
+.joinha-pergunta {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.joinha-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.joinha-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 14px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.joinha-positivo {
+    color: #28a745;
+}
+
+.joinha-positivo:hover {
+    border-color: #28a745;
+    background-color: #e8f5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+}
+
+.joinha-negativo {
+    color: #dc3545;
+}
+
+.joinha-negativo:hover {
+    border-color: #dc3545;
+    background-color: #ffeef0;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(220, 53, 69, 0.2);
+}
+
+.joinha-emoji {
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+.joinha-texto {
+    font-size: 0.65em;
+    font-weight: 600;
+}
+
+.joinha-btn.disabled {
+    opacity: 0.5;
+    cursor: default;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.joinha-feedback {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 500;
+    font-size: 0.8em;
+    color: var(--primary-color);
+    animation: fadeIn 0.3s ease-in;
+}
+
+.joinha-stats {
+    text-align: center;
+    margin-top: 4px;
+    font-size: 0.75em;
+    color: #666;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== RESPONSIVIDADE MOBILE ========== */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    .container {
+        padding: 12px;
+        margin-top: 2px;
+        margin-bottom: 70px;
+        max-width: 100%;
+    }
+    
+    .login-optica-logo {
+        max-height: 55px;
+    }
+    
+    .login-agenda-text {
+        font-size: 1.6em;
+        letter-spacing: 2px;
+    }
+    
+    .lema {
+        font-size: 0.8em;
+        margin-top: 2px;
+        margin-bottom: 8px;
+    }
+    
+    h2 {
+        font-size: 1.05em;
+    }
+    
+    .btn-primary {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    
+    .btn-dashboard {
+        padding: 14px;
+    }
+    
+    .top-logo {
+        max-height: 40px;
+        max-width: 120px;
+    }
+    
+    .joinha-container {
+        gap: 8px;
+    }
+    
+    .joinha-btn {
+        padding: 4px 10px;
+    }
+    
+    .joinha-emoji {
+        font-size: 1.1em;
+    }
+    
+    .footer {
+        font-size: 0.5em;
+        padding: 6px;
+    }
+}
+
+/* ========== RESPONSIVIDADE TABLET ========== */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        max-width: 450px;
+    }
+    
+    .login-optica-logo {
+        max-height: 70px;
+    }
+    
+    .login-agenda-text {
+        font-size: 2em;
+    }
+    
+    .top-logo {
+        max-height: 50px;
+    }
+}
+
+/* ========== RESPONSIVIDADE DESKTOP ========== */
+@media (min-width: 769px) {
+    body {
+        padding: 20px;
+    }
+    
+    .container {
+        padding: 30px;
+        max-width: 520px;
+    }
+    
+    .login-optica-logo {
+        max-height: 90px;
+    }
+    
+    .login-agenda-text {
+        font-size: 2.5em;
+    }
+    
+    .lema {
+        font-size: 1.05em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    .top-logo {
+        max-height: 65px;
+        max-width: 200px;
+    }
+    
+    .joinha-container {
+        gap: 20px;
+    }
+    
+    .joinha-btn {
+        padding: 8px 18px;
+    }
+    
+    .joinha-emoji {
+        font-size: 1.6em;
+    }
+}
+
+/* ========== RESPONSIVIDADE DESKTOP GRANDE ========== */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 550px;
+        padding: 35px;
+    }
+    
+    .login-optica-logo {
+        max-height: 100px;
+    }
+}

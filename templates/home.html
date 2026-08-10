@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block container_class %}dashboard-container{% endblock %}
+{% block content %}
+    <div class="app-header">
+        <img src="{{ url_for('static', filename='logo_optica.png') }}" alt="Óptica Felíssia" class="app-logo">
+        <span class="app-agenda-text">AGENDA</span>
+    </div>
+
+    <div class="dashboard-buttons">
+        <a href="{{ url_for('agendar') }}" class="btn-dashboard">Agendar Consulta de Vista</a>
+        <a href="{{ url_for('catalogo') }}" class="btn-dashboard">Acessar Catálogo da Loja</a>
+        <a href="https://wa.me/5598970089742" target="_blank" class="btn-dashboard">Falar no WhatsApp</a>
+    </div>
+    <p style="margin-top: 30px;"><a href="{{ url_for('logout') }}">Sair</a></p>
+{% endblock %}

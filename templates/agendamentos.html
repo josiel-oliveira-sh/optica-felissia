@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Meus Agendamentos{% endblock %}
+{% block content %}
+    <div class="app-header">
+        <img src="{{ url_for('static', filename='logo_optica.png') }}" alt="Óptica Felíssia" class="app-logo">
+        <span class="app-agenda-text">AGENDA</span>
+    </div>
+    <h2>Consultas Agendadas</h2>
+    <ul>
+    {% for a in agendamentos %}
+        <li>{{ a.data }}</li>
+    {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('agendar') }}">Novo Agendamento</a></p>
+    <p><a href="{{ url_for('logout') }}">Sair</a></p>
+{% endblock %}
