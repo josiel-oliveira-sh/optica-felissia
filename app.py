@@ -85,7 +85,6 @@ def enviar_email_assunto(nome, cpf, data, horario, endereco, numero, telefone):
             server.quit()
             return True
         else:
-            # Salvar em arquivo caso SMTP não esteja configurado
             print(f"[EMAIL] Mensagem salva (SMTP não configurado): {corpo}")
             return False
     except Exception as e:
@@ -93,18 +92,20 @@ def enviar_email_assunto(nome, cpf, data, horario, endereco, numero, telefone):
         return False
 
 def enviar_whatsapp_oticia(nome, cpf, data, horario, endereco, numero, telefone):
-    """Envia mensagem automática para o WhatsApp da óptica."""
+    """Gera link do WhatsApp da óptica com os dados do cliente preenchidos."""
     try:
         mensagem = (
-            f"Olá Óptica Felíssia!%0A%0A"
-            f"Uma consulta realizada:%0A%0A"
-            f"*Cliente:* {nome}%0A"
+            f"*Uma consulta realizada* ✅%0A%0A"
+            f"*Óptica Felíssia - AGENDADOU*%0A%0A"
+            f"━━━━━━━━━━━━━━━━%0A"
+            f"*Nome:* {nome}%0A"
             f"*CPF:* {cpf}%0A"
             f"*Data:* {data}%0A"
             f"*Horário:* {horario}%0A"
             f"*Endereço:* {endereco}, Nº {numero}%0A"
-            f"*Telefone:* {telefone}%0A%0A"
-            f"Mensagem do sistema: Consulta Confirmada ✅"
+            f"*Telefone:* {telefone}%0A"
+            f"━━━━━━━━━━━━━━━━%0A%0A"
+            f"Mensagem automática do sistema"
         )
         
         # Abrir link do WhatsApp com a mensagem preenchida
@@ -245,7 +246,7 @@ def agendar():
         # Enviar e-mail para a óptica
         enviar_email_assunto(nome, cpf, data, horario, endereco, numero, telefone)
         
-        # Gerar link WhatsApp para a óptica
+        # Gerar link WhatsApp para a óptica (dados do cliente)
         whatsapp_oticia_url = enviar_whatsapp_oticia(nome, cpf, data, horario, endereco, numero, telefone)
         
         # Gerar resposta automática para o cliente
@@ -254,25 +255,11 @@ def agendar():
         # Mensagem de sucesso personalizada
         mensagem_sucesso = f"Olá {nome}! Seu agendamento para o dia {data} às {horario} foi realizado com sucesso."
         
-        # Gerar link do WhatsApp do cliente para confirmação
-        texto_cliente = (
-            f"Olá Óptica Felíssia! Gostaria de confirmar meu agendamento de consulta de vista.%0A%0A"
-            f"*Nome:* {nome}%0A"
-            f"*CPF:* {cpf}%0A"
-            f"*Data:* {data}%0A"
-            f"*Horário:* {horario}%0A"
-            f"*Endereço:* {endereco}, Nº {numero}%0A"
-            f"*Referência:* {referencia}%0A"
-            f"*Telefone:* {telefone}"
-        )
-        whatsapp_cliente_url = f"https://wa.me/{OPTICA_WHATSAPP}?text={texto_cliente}"
-        
         return render_template('agendar.html', 
                                mensagem=mensagem_sucesso, 
                                resposta_ia=resposta_cliente,
                                agendamento=novo_agendamento, 
                                horarios=horarios_disponiveis,
-                               whatsapp_cliente_url=whatsapp_cliente_url,
                                whatsapp_oticia_url=whatsapp_oticia_url)
     
     return render_template('agendar.html', horarios=horarios_disponiveis, empresa_logo=empresa_logo)
