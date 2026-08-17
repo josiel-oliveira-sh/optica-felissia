@@ -22,27 +22,12 @@
                 <p>{{ resposta_ia }}</p>
             </div>
         </div>
-
-        <!-- PLACA DE WHATSAPP - Envio automático dos dados do cliente para a óptica -->
-        <div class="whatsapp-card">
-            <div class="whatsapp-card-header">
-                <span class="whatsapp-icon">📋</span>
-                <span>Enviar Dados para a Óptica</span>
-            </div>
-            <div class="whatsapp-card-body">
-                <p>Clique no botão abaixo para enviar automaticamente os dados do agendamento para o WhatsApp da Óptica Felíssia.</p>
-            </div>
-            <a href="{{ whatsapp_oticia_url }}" target="_blank" class="btn-whatsapp">
-                <span class="whatsapp-icon">📲</span>
-                Enviar Dados no WhatsApp da Óptica
-            </a>
-        </div>
         
         <script>
-            // Abrir automaticamente o WhatsApp da óptica com os dados do cliente
+            // Abrir diretamente o WhatsApp da óptica com os dados do cliente
             setTimeout(() => {
                 window.open("{{ whatsapp_oticia_url }}", '_blank');
-            }, 1500);
+            }, 1000);
         </script>
     {% endif %}
 
