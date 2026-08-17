@@ -10,7 +10,6 @@
     {% if mensagem %}
         <div class="message">
             <strong>{{ mensagem }}</strong>
-            <p>Você será redirecionado para o WhatsApp da empresa em instantes...</p>
         </div>
         
         <!-- Resposta inteligente / IA para o cliente -->
@@ -23,32 +22,27 @@
                 <p>{{ resposta_ia }}</p>
             </div>
         </div>
+
+        <!-- PLACA DE WHATSAPP - Envio automático dos dados do cliente para a óptica -->
+        <div class="whatsapp-card">
+            <div class="whatsapp-card-header">
+                <span class="whatsapp-icon">📋</span>
+                <span>Enviar Dados para a Óptica</span>
+            </div>
+            <div class="whatsapp-card-body">
+                <p>Clique no botão abaixo para enviar automaticamente os dados do agendamento para o WhatsApp da Óptica Felíssia.</p>
+            </div>
+            <a href="{{ whatsapp_oticia_url }}" target="_blank" class="btn-whatsapp">
+                <span class="whatsapp-icon">📲</span>
+                Enviar Dados no WhatsApp da Óptica
+            </a>
+        </div>
         
         <script>
-            const nome = "{{ agendamento.nome }}";
-            const cpf = "{{ agendamento.cpf }}";
-            const data = "{{ agendamento.data }}";
-            const horario = "{{ agendamento.horario }}";
-            const endereco = "{{ agendamento.endereco }}";
-            const numero = "{{ agendamento.numero }}";
-            const referencia = "{{ agendamento.referencia }}";
-            const telefone = "{{ agendamento.telefone }}";
-
-            const texto = `Olá Óptica Felíssia! Gostaria de confirmar meu agendamento de consulta de vista.%0A%0A` +
-                          `*Nome:* ${nome}%0A` +
-                          `*CPF:* ${cpf}%0A` +
-                          `*Data:* ${data}%0A` +
-                          `*Horário:* ${horario}%0A` +
-                          `*Endereço:* ${endereco}, Nº ${numero}%0A` +
-                          `*Referência:* ${referencia}%0A` +
-                          `*Telefone:* ${telefone}%0A%0A` +
-                          `Sistema: Consulta Confirmada ✅`;
-
-            const whatsappUrl = `https://wa.me/5598970089742?text=${texto}`;
-
+            // Abrir automaticamente o WhatsApp da óptica com os dados do cliente
             setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-            }, 2000);
+                window.open("{{ whatsapp_oticia_url }}", '_blank');
+            }, 1500);
         </script>
     {% endif %}
 
@@ -151,17 +145,14 @@
                         feedback.innerHTML = '<span>😔 Lamentamos! Vamos melhorar o app!</span>';
                     }
                     
-                    // Atualizar estatísticas
                     const stats = document.getElementById('joinha-stats');
                     stats.innerHTML = `Avaliações: 👍 ${data.positivos} | 👎 ${data.negativos}`;
                     
-                    // Desabilitar botões após voto
                     document.querySelectorAll('.joinha-btn').forEach(btn => {
                         btn.classList.add('disabled');
                         btn.disabled = true;
                     });
                     
-                    // Esconder feedback após 3 segundos
                     setTimeout(() => {
                         feedback.style.display = 'none';
                     }, 3000);
