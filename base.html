@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#007bff">
+    <title>{% block title %}AGENDADOU{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="app-loading" class="app-loading" role="status" aria-live="polite">
+        <div class="loading-spinner"></div>
+        <p>Abrindo o aplicativo, aguarde...</p>
+    </div>
+    <div class="container {% block container_class %}{% endblock %}">
+        {% block content %}{% endblock %}
+    </div>
+    <footer class="footer">
+        JODEX - Soluções em Tecnologias
+    </footer>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('app-loading').classList.add('is-hidden');
+        });
+
+        document.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (link && link.href && !link.target && !link.href.startsWith('#') &&
+                !link.href.startsWith('javascript:')) {
+                document.getElementById('app-loading').classList.remove('is-hidden');
+            }
+        });
+
+        document.addEventListener('submit', function () {
+            document.getElementById('app-loading').classList.remove('is-hidden');
+        });
+    </script>
+</body>
+</html>

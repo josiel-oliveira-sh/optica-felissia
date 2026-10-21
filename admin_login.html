@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Acesso administrativo{% endblock %}
+{% block content %}
+    <div class="login-logo-wrapper">
+        <img src="{{ url_for('static', filename='logo_optica.png') }}" alt="Óptica Felíssia" class="login-optica-logo">
+        <span class="login-agenda-text">AGENDA</span>
+    </div>
+    <p class="lema">Área exclusiva da administração</p>
+    <div class="admin-login-badge">PAINEL ADMINISTRATIVO</div>
+    {% if erro %}<p class="error">{{ erro }}</p>{% endif %}
+    <form method="post" data-loading-form>
+        <div class="form-group">
+            <label for="email">E-mail administrativo:</label>
+            <input type="email" id="email" name="email" required autocomplete="username">
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required autocomplete="current-password">
+        </div>
+        <input type="submit" value="ENTRAR NO PAINEL" class="btn-primary">
+    </form>
+    <p class="admin-back-link"><a href="{{ url_for('login') }}">Voltar para o acesso dos clientes</a></p>
+{% endblock %}

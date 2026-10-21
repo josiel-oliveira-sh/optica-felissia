@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Painel Administrativo{% endblock %}
+{% block container_class %}admin-container{% endblock %}
+{% block content %}
+    <div class="admin-topbar">
+        <div class="app-header admin-brand">
+            <img src="{{ url_for('static', filename='logo_optica.png') }}" alt="Óptica Felíssia" class="app-logo">
+            <span class="app-agenda-text">AGENDA</span>
+        </div>
+        <a class="admin-logout" href="{{ url_for('admin_logout') }}">Sair</a>
+    </div>
+
+    <div class="admin-heading">
+        <div>
+            <span class="admin-eyebrow">GESTÃO DA ÓPTICA FELÍSSIA</span>
+            <h1>Agendamentos recebidos</h1>
+            <p>Todos os clientes que concluíram um agendamento aparecem nesta área.</p>
+        </div>
+        <div class="admin-total-card">
+            <strong>{{ total }}</strong>
+            <span>agendamento{% if total != 1 %}s{% endif %}</span>
+        </div>
+    </div>
+
+    {% if agendamentos %}
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Consulta</th>
+                        <th>Contato</th>
+                        <th>Endereço</th>
+                        <th>Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in agendamentos %}
+                    <tr>
+                        <td data-label="Cliente">
+                            <strong>{{ a.nome }}</strong>
+                            <small>CPF: {{ a.cpf }}</small>
+                        </td>
+                        <td data-label="Consulta">
+                            <strong>{{ a.data }}</strong>
+                            <small>Horário: {{ a.horario }}</small>
+                        </td>
+                        <td data-label="Contato">
+                            <a href="tel:{{ a.telefone }}">{{ a.telefone }}</a>
+                        </td>
+                        <td data-label="Endereço">
+                            {{ a.endereco }}, nº {{ a.numero }}
+                            <small>{{ a.referencia }}</small>
+                        </td>
+                        <td data-label="Registro">
+                            <small>{{ a.data_criacao }}</small>
+                            <span class="status-pill">Agendado</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="admin-empty">
+            <div class="admin-empty-icon">▣</div>
+            <h2>Nenhum agendamento ainda</h2>
+            <p>Quando um cliente concluir o formulário, os dados aparecerão aqui.</p>
+        </div>
+    {% endif %}
+{% endblock %}
