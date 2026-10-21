@@ -12,7 +12,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
-app.secret_key = 'secret-key'
+app.secret_key = os.environ.get('SECRET_KEY', 'agendadou-chave-local-troque-no-render')
 
 USERS_FILE = 'users.json'
 AGENDAMENTOS_FILE = 'agendamentos.json'
@@ -23,6 +23,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 # Dados da Óptica Felíssia
 OPTICA_WHATSAPP = '5598970089742'
 OPTICA_EMAIL = 'opticafelissia@gmail.com'
+
+# Credenciais exclusivas do painel administrativo.
+# No Render, defina ADMIN_EMAIL e ADMIN_PASSWORD em Environment Variables.
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@opticafelissia.com')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'Agendadou@2026')
 
 # Configuração de e-mail (SMTP)
 SMTP_HOST = 'smtp.gmail.com'
@@ -49,6 +54,11 @@ def carregar_dados(arquivo):
 def salvar_dados(arquivo, dados):
     with open(arquivo, 'w') as f:
         json.dump(dados, f, indent=4)
+
+
+def admin_required():
+    """Retorna True somente para uma sessão autenticada como administrador."""
+    return session.get('admin_autenticado') is True
 
 
 def enviar_email_assunto(nome, cpf, data, horario, endereco, numero, telefone):
@@ -229,14 +239,26 @@ def agendar():
     horarios_disponiveis = ["08:00", "09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"]
 
     if request.method == 'POST':
-        nome = request.form['nome']
-        cpf = request.form['cpf']
-        endereco = request.form['endereco']
-        numero = request.form['numero']
-        referencia = request.form.get('referencia', '')
-        telefone = request.form['telefone']
-        data = request.form['data']
-        horario = request.form['horario']
+        nome = request.form.get('nome', '').strip()
+        cpf = request.form.get('cpf', '').strip()
+        endereco = request.form.get('endereco', '').strip()
+        numero = request.form.get('numero', '').strip()
+        referencia = request.form.get('referencia', '').strip()
+        telefone = request.form.get('telefone', '').strip()
+        data = request.form.get('data', '').strip()
+        horario = request.form.get('horario', '').strip()
+
+        campos_obrigatorios = {
+            'nome': nome, 'cpf': cpf, 'endereco': endereco, 'numero': numero,
+            'referencia': referencia, 'telefone': telefone, 'data': data,
+            'horario': horario
+        }
+        if any(not valor for valor in campos_obrigatorios.values()):
+            return render_template(
+                'agendar.html', horarios=horarios_disponiveis,
+                empresa_logo=empresa_logo,
+                erro='Preencha todos os campos obrigatórios antes de confirmar.'
+            ), 400
 
         agendamentos = carregar_dados(AGENDAMENTOS_FILE)
 
@@ -279,6 +301,45 @@ def agendar():
                                whatsapp_oticia_url=whatsapp_oticia_url)
 
     return render_template('agendar.html', horarios=horarios_disponiveis, empresa_logo=empresa_logo)
+
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    """Login separado para que clientes não tenham acesso ao painel."""
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        senha = request.form.get('senha', '')
+        if email == ADMIN_EMAIL.lower() and senha == ADMIN_PASSWORD:
+            session['admin_autenticado'] = True
+            session['admin_email'] = email
+            return redirect(url_for('admin_dashboard'))
+        return render_template('admin_login.html', erro='E-mail ou senha administrativa inválidos.')
+    return render_template('admin_login.html')
+
+
+@app.route('/admin')
+def admin_dashboard():
+    if not admin_required():
+        return redirect(url_for('admin_login'))
+
+    todos_agendamentos = carregar_dados(AGENDAMENTOS_FILE)
+    todos_agendamentos = sorted(
+        todos_agendamentos,
+        key=lambda item: item.get('data_criacao', ''),
+        reverse=True
+    )
+    return render_template(
+        'admin.html',
+        agendamentos=todos_agendamentos,
+        total=len(todos_agendamentos)
+    )
+
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_autenticado', None)
+    session.pop('admin_email', None)
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/catalogo')
